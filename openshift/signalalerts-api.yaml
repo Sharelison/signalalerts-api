@@ -55,7 +55,7 @@ objects:
     data:
       install-signal-cli.sh: |-
         #!/bin/bash
-        if [ -d "$SIGNAL_CLI_PATH/signal-cli-${SIGNAL_CLI_VERSION}" ]; then
+        if [ -d "$SIGNAL_CLI_PATH" ]; then
           curl -Lo $SIGNAL_CLI_PATH/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz https://github.com/AsamK/signal-cli/releases/download/v"${SIGNAL_CLI_VERSION}"/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz
           tar xf $SIGNAL_CLI_PATH/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz -C $SIGNAL_CLI_PATH
         fi
@@ -82,8 +82,8 @@ objects:
               image: " "
               command: ['sh', '-c', '/tmp/install-signal-cli.sh']
               env:
-                - name: SIGNAL_CLI
-                  value: $SIGNAL_CLI_PATH/signal-cli-${SIGNAL_CLI_VERSION}/bin/signal-cli
+                - name: SIGNAL_CLI_PATH
+                  value: ${SIGNAL_CLI_PATH}
               volumeMounts:
                 - name: ${NAME}-pv
                   mountPath: ${SIGNAL_CLI_PATH}
