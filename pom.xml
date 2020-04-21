@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<lombok.version>1.18.12</lombok.version>
+		<mockito-all.version>1.10.19</mockito-all.version>
 	</properties>
 
 	<dependencies>
@@ -40,16 +41,11 @@
 		</dependency>
 
 
+		<!-- TEST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 
