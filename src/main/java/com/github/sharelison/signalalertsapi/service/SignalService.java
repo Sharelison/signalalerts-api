@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 @Slf4j
@@ -27,9 +28,9 @@ public class SignalService {
 
     public SignalService() throws IOException, InterruptedException {
         runtime = Runtime.getRuntime();
-        registerNumber();
     }
 
+    @PostConstruct
     private void registerNumber() throws IOException, InterruptedException {
         log.info("registering number {}", phoneNumberSender);
         Process process = runtime.exec(String.format(REGISTER_CMD, SIGNAL_CLI, phoneNumberSender));
