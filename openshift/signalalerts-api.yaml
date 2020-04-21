@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: signalalerts-api
+  name: signalalertsapi
 objects:
   - apiVersion: v1
     kind: BuildConfig
@@ -23,7 +23,8 @@ objects:
         sourceStrategy:
           from:
             kind: ImageStreamTag
-            name: registry.access.redhat.com/openjdk/openjdk-11-rhel7
+            name: java:11
+            namespace: openshift
         type: Source
       triggers:
         - type: ConfigChange
@@ -55,7 +56,7 @@ objects:
       install-signal-cli.sh: |-
         #!/bin/bash
         if [ -d "$SIGNAL_CLI_PATH/signal-cli-${SIGNAL_CLI_VERSION}" ]; then
-          curl -o $SIGNAL_CLI_PATH/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz https://github.com/AsamK/signal-cli/releases/download/v"${SIGNAL_CLI_VERSION}"/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz
+          curl -Lo $SIGNAL_CLI_PATH/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz https://github.com/AsamK/signal-cli/releases/download/v"${SIGNAL_CLI_VERSION}"/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz
           tar xf $SIGNAL_CLI_PATH/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz -C $SIGNAL_CLI_PATH
         fi
   - apiVersion: v1
@@ -77,9 +78,9 @@ objects:
             app: ${NAME}
         spec:
           initContainers:
-            - name: ${NAME}
-              image: rhel7
-              command: ['sh', '-c', './tmp/install-signal-cli.sh']
+            - name: ${NAME}-init
+              image: " "
+              command: ['sh', '-c', '/tmp/install-signal-cli.sh']
               env:
                 - name: SIGNAL_CLI
                   value: $SIGNAL_CLI_PATH/signal-cli-${SIGNAL_CLI_VERSION}/bin/signal-cli
@@ -90,14 +91,14 @@ objects:
                   mountPath: /tmp
           containers:
             - name: ${NAME}
-              image: ${NAME}
+              image: " "
               env:
                 - name: SENDER_PHONENUMBER
                   value: ${SENDER_PHONENUMBER}
                 - name: RECIPIENT_PHONENUMBER
                   value: ${RECIPIENT_PHONENUMBER}
                 - name: SIGNAL_CLI
-                  value: ${SIGNAL_CLI_PATH}/signal-cli
+                  value: ${SIGNAL_CLI_PATH}/signal-cli-${SIGNAL_CLI_VERSION}/bin/signal-cli
               ports:
                 - containerPort: 8080
                   protocol: TCP
@@ -109,8 +110,21 @@ objects:
                 claimName: ${NAME}
               name: ${NAME}-pv
             - configMap:
+                defaultMode: 0777
                 name: ${NAME}
               name: ${NAME}-init
+      triggers:
+        - type: configChange
+        - type: ImageChange
+          imageChangeParams:
+            containerNames:
+              - ${NAME}
+              - ${NAME}-init
+            automatic: true
+            from:
+              kind: ImageStreamTag
+              name: ${NAME}:latest
+
   - apiVersion: v1
     kind: Service
     metadata:
@@ -144,13 +158,13 @@ objects:
 
 parameters:
   - name: NAME
-    value: signalalerts-api
+    value: signalalertsapi
   - name: GIT_REMOTE_URI
     value: https://github.com/Sharelison/signalalerts-api.git
   - name: SENDER_PHONENUMBER
-    value: +3166666666
+    value: "+3166666666"
   - name: RECIPIENT_PHONENUMBER
-    value: +3166666666
+    value: "+3166666666"
   - name: SIGNAL_CLI_PATH
     value: /signal-client
   - name: SIGNAL_CLI_VERSION
