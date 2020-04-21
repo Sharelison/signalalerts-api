@@ -99,7 +99,7 @@ objects:
                   value: ${RECIPIENT_PHONENUMBER}
                 - name: SIGNAL_CLI
                   value: ${SIGNAL_CLI_PATH}/signal-cli-${SIGNAL_CLI_VERSION}/bin/signal-cli
-                - name: SPRING_ACTIVE_PROFILES
+                - name: SPRING_PROFILES_ACTIVE
                   value: openshift
               ports:
                 - containerPort: 8080
