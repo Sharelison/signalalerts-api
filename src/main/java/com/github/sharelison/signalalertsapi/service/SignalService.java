@@ -16,7 +16,7 @@ public class SignalService {
     private static final String SIGNAL_CLI = "signal-cli";
     private static final String REGISTER_CMD = "%s -u %s register";
     private static final String VERIFY_CMD = "%s -u %s verify %s";
-    private static final String SEND_MSG_CMD = "%s -u %s send -m %s %s";
+    private static final String SEND_MSG_CMD = "%s -u %s send -m \"%s\" %s";
 
     private final Runtime runtime;
 
