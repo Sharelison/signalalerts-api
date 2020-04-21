@@ -15,9 +15,6 @@ import java.io.InputStreamReader;
 public class SignalService {
 
     private static final String REGISTER_CMD = "%s -u %s register";
-    private static final String VERIFY_CMD = "%s -u %s verify %s";
-    private static final String SEND_MSG_CMD = "%s -u %s send -m \"%s\" %s";
-
     private final Runtime runtime;
 
     @Value("${signal.phonenumber.sender}")
@@ -35,22 +32,21 @@ public class SignalService {
 
     public void register() throws IOException, InterruptedException {
         log.info("registering number {}", phoneNumberSender);
-        Process process = runtime.exec(String.format(REGISTER_CMD, signalCli, phoneNumberSender));
+        Process process = runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "register"});
         handleProcessResult(process, "Failed to register number");
         log.info("registered successfully");
     }
 
     public void verifyNumber(String verificationCode) throws IOException, InterruptedException {
         log.info("verifying number {}", phoneNumberSender);
-        Process process = runtime.exec(String.format(VERIFY_CMD, signalCli, phoneNumberSender, verificationCode));
+        Process process = runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "verify", verificationCode});
         handleProcessResult(process, "Failed to verify number");
         log.info("verified successfully");
     }
 
     public void sendMessage(SignalAlert message) throws IOException, InterruptedException {
         log.info("sending message");
-        runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "send", "-m", message.toString(), phoneNumberRecipient});
-        Process process = runtime.exec(String.format(SEND_MSG_CMD, signalCli, phoneNumberSender, message.toString(), phoneNumberRecipient));
+        Process process = runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "send", "-m", message.toString(), phoneNumberRecipient});
         handleProcessResult(process, "Failed to send message");
         log.info("message sent");
     }
