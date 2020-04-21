@@ -17,13 +17,18 @@ public class SignalAlertController {
         this.signalService = signalService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, path = "/register")
+    public String register() throws IOException, InterruptedException {
+        signalService.register();
+        return "Successfully registered number";
+    }
+    @RequestMapping(method = RequestMethod.GET, path = "/verify")
     public String verifyNumber(@RequestParam("code") String code) throws IOException, InterruptedException {
         signalService.verifyNumber(code);
         return "Successfully verified";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, path = "/send")
     public String sendMessage(@RequestBody SignalAlert signalAlert) throws IOException, InterruptedException {
         signalService.sendMessage(signalAlert);
         return "Alert message sent";

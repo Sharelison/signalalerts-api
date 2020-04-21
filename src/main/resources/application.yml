@@ -1,4 +1,6 @@
 signal:
   phonenumber:
-    sender: +3166666666
-    recipient: +3166666666
+    sender: "+31645930446"
+    recipient: "+31686221595"
+  client: signal-cli
+server.port: 8081
