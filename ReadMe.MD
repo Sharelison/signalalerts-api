@@ -22,7 +22,7 @@ signal data. New numbers can also be registered. This will also automatically be
 
 First time installing the application:
 
-  oc process -f openshift/signalalerts-api.yml | oc apply -f -
+    oc process -f openshift/signalalerts-api.yml | oc apply -f -
 
 This will create all the resources needed to run this project on a openshift cluster. (For kubernetes, the image must be built first)
 The template create a buildconfig for building the application. Make sure update the build image before running the build. The buildconfig expects a java image in the openshift namespace. This 
