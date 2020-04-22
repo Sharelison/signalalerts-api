@@ -25,7 +25,7 @@ First time installing the application:
     oc process -f openshift/signalalerts-api.yml | oc apply -f -
 
 This will create all the resources needed to run this project on a openshift cluster. (For kubernetes, the image must be built first)
-The template create a buildconfig for building the application. Make sure update the build image before running the build. The buildconfig expects a java image in the openshift namespace. This 
+The template creates a buildconfig for building the application. Make sure to update the build image before running the build. The buildconfig expects a java image in the openshift namespace. This 
 might not always be the case.
 
 In de deploymentconfig created by the template make sure to update the environment variables SENDER_PHONENUMBER and RECIPIENT_PHONENUMBER.
