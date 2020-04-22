@@ -7,7 +7,7 @@ This API provides a way to send messages to signal through a REST api. It is ini
   - [signal-cli](https://github.com/AsamK/signal-cli)
 #### To run on local machine:
 
-  mvn spring-boot:run -Dspring-boot.run.profiles=local
+      mvn spring-boot:run -Dspring-boot.run.profiles=local
 
 #### Run on Openshift/Kubernetes
 This project is initially created to send alertmanager (prometheus) alerts to signal.
