@@ -3,6 +3,7 @@ package com.github.sharelison.signalalertsapi.controller;
 import com.github.sharelison.signalalertsapi.domain.prometheus.SignalAlert;
 import com.github.sharelison.signalalertsapi.service.SignalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -28,9 +29,15 @@ public class SignalAlertController {
         return "Successfully verified";
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/send")
+    @RequestMapping(method = RequestMethod.POST, path = "/send/prometheusalert")
     public String sendMessage(@RequestBody SignalAlert signalAlert) throws IOException, InterruptedException {
         signalService.sendMessage(signalAlert);
         return "Alert message sent";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/send", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public String sendCustomMessage(@RequestBody String message) throws IOException, InterruptedException {
+        signalService.sendMessage(message);
+        return "Message sent";
     }
 }

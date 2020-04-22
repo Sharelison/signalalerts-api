@@ -1,1 +1,61 @@
 ### Send prometheus alert manager messages to signal
+
+####To run locally:
+######Prerequesites
+signal-cli must be installed in order to run locally. 
+
+```mvn spring-boot:run -Dspring-boot.run.profiles=local``` 
+
+####Run on Openshift/Kubernetes
+This project is initially created to send alertmanager (prometheus) alerts to signal.
+In the provided template (openshift/signalalerts-api.yml), a init container will install the signal cli on a persistent volume. 
+This persistent volume is then mounted under the container containing this application making it possible to only having to register a number once. 
+Once a number is registered, all the signal data that comes with this, is saved on the persistent volume. Which means the application can now be restarted and destroyed without losing the
+signal data. New numbers can also be registered. This will also automatically be saved on the persistent volume. Making this application a stateless application and container ready. 
+
+
+####Usage
+
+First time installing the application:
+
+``` oc process -f openshift/signalalerts-api.yml | oc apply -f - ```
+
+This will create all the resources needed to run this project on a openshift cluster. (For kubernetes, the image must be built first)
+The template create a buildconfig for building the application. Make sure update the build image before running the build. The buildconfig expects a java image in the openshift namespace. This 
+might not always be the case.
+
+In de deploymentconfig created by the template make sure to update the environment variables SENDER_PHONENUMBER and RECIPIENT_PHONENUMBER.
+To make this easier these values can also be passed as a parameter in the template:
+
+``` oc process -f openshift/signalalerts-api.yml -p SENDER_PHONENUMBER=<yourphonenumber>  RECIPIENT_PHONENUMBER=<recipientphonenumber> | oc apply -f - ```
+
+Once the application is installed and runnning on the cluster, register and verify your number. 
+
+To register send a GET request to the route endpoint created by the template (oc get route signalalertsapi).
+
+``` http://signalalertsapi-<namespace>.<yourdomain>/register```
+
+After this, an sms is sent to the sender phone number (SENDER_PHONENUMBER) with the verificationcode.
+To verify the number, send a GET request to:
+
+```http://signalalertsapi-<namespace>.<yourdomain>/verify?code=<verificationcode>```
+
+REPLACE verificationcode by the actual verification code.
+
+Once this is done, the application is all set and can be used to send messages. 
+
+To send a custom message send a POST request with a string in the body to:
+
+```http://signalalertsapi-<namespace>.<yourdomain>/send```
+
+To forward messages from prometheus alertmanager to this application update the prometheus config with a receiver:
+
+```    receivers:
+         - name: default-receiver
+         - name: signalapp-receiver
+           webhook_configs:
+             - url: "http://signalalertsapi-<namespace>.<yourdomain>/send/prometheusalert"
+```
+To learn more about prometheus configs, see: https://prometheus.io/docs/alerting/configuration/#receiverhere.
+
+All set, this is everything that's needed to send alerts from a prometheus alertmanager running on openshift to Signal. 

@@ -45,8 +45,12 @@ public class SignalService {
     }
 
     public void sendMessage(SignalAlert message) throws IOException, InterruptedException {
+       sendMessage(message.toString());
+    }
+
+    public void sendMessage(String message) throws IOException, InterruptedException {
         log.info("sending message");
-        Process process = runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "send", "-m", message.toString(), phoneNumberRecipient});
+        Process process = runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "send", "-m", message, phoneNumberRecipient});
         handleProcessResult(process, "Failed to send message");
         log.info("message sent");
     }
