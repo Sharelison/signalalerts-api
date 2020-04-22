@@ -55,7 +55,7 @@ objects:
     data:
       install-signal-cli.sh: |-
         #!/bin/bash
-        if [ -d "$SIGNAL_CLI_PATH" ]; then
+        if [ ! -d "$SIGNAL_CLI_PATH/signal-cli-${SIGNAL_CLI_VERSION}" ]; then
           curl -Lo $SIGNAL_CLI_PATH/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz https://github.com/AsamK/signal-cli/releases/download/v"${SIGNAL_CLI_VERSION}"/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz
           tar xf $SIGNAL_CLI_PATH/signal-cli-"${SIGNAL_CLI_VERSION}".tar.gz -C $SIGNAL_CLI_PATH
         fi
