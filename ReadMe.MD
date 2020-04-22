@@ -7,7 +7,7 @@ This API provides a way to send messages to signal through a REST api. It is ini
   - [signal-cli](https://github.com/AsamK/signal-cli)
 #### To run locally:
 ###### Prerequesites
-signal-cli must be installed in order to run locally. 
+  - signal-cli must be installed in order to run locally. 
 
     mvn spring-boot:run -Dspring-boot.run.profiles=local
 
