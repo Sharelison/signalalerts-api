@@ -1,20 +1,25 @@
-### Send prometheus alert manager messages to signal
+# Signal Alerts API
+This API provides a way to send messages to signal through a REST api. It is initially designed to forward Prometheus AlertManager alerts to Signal. 
 
-####To run locally:
-######Prerequesites
+## Getting Started
+
+### Prerequisites
+  - [signal-cli](https://github.com/AsamK/signal-cli)
+#### To run locally:
+###### Prerequesites
 signal-cli must be installed in order to run locally. 
 
     mvn spring-boot:run -Dspring-boot.run.profiles=local
 
-####Run on Openshift/Kubernetes
+#### Run on Openshift/Kubernetes
 This project is initially created to send alertmanager (prometheus) alerts to signal.
 In the provided template (openshift/signalalerts-api.yml), a init container will install the signal cli on a persistent volume. 
 This persistent volume is then mounted under the container containing this application making it possible to only having to register a number once. 
 Once a number is registered, all the signal data that comes with this, is saved on the persistent volume. Which means the application can now be restarted and destroyed without losing the
-signal data. New numbers can also be registered. This will also automatically be saved on the persistent volume. Making this application a stateless application and container ready. 
+signal data. New numbers can also be registered. This will also automatically be saved on the persistent volume. This makes the application stateless and container ready. 
 
 
-####Usage
+#### Usage
 
 First time installing the application:
 
