@@ -1,5 +1,0 @@
-signal:
-  phonenumber:
-    sender: ${SENDER_PHONENUMBER}
-    recipient: ${RECIPIENT_PHONENUMBER}
-  client: ${SIGNAL_CLI}
