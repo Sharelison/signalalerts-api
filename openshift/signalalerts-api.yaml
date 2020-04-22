@@ -23,7 +23,7 @@ objects:
         sourceStrategy:
           from:
             kind: ImageStreamTag
-            name: java:11
+            name: java:latest
             namespace: openshift
         type: Source
       triggers:
