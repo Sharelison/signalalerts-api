@@ -35,7 +35,7 @@ public class SignalAlertController {
         return "Alert message sent";
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/send", consumes = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(method = RequestMethod.POST, path = "/send", consumes = MediaType.ALL_VALUE)
     public String sendCustomMessage(@RequestBody String message) throws IOException, InterruptedException {
         signalService.sendMessage(message);
         return "Message sent";
