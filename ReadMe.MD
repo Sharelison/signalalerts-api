@@ -43,8 +43,7 @@ After this, an sms is sent to the sender phone number (SENDER_PHONENUMBER) with 
 To verify the number, send a GET request to:
 
     http://signalalertsapi-<namespace>.<yourdomain>/verify?code=<verificationcode>
-
-REPLACE verificationcode by the actual verification code.
+NOTE: replce verificationcode by the actual verification code.
 
 Once this is done, the application is all set and can be used to send messages. 
 
