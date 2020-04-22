@@ -29,11 +29,11 @@ The template creates a buildconfig for building the application. Make sure to up
 might not always be the case.
 
 In de deploymentconfig created by the template make sure to update the environment variables SENDER_PHONENUMBER and RECIPIENT_PHONENUMBER.
-To make this easier these values can also be passed as a parameter in the template:
+To make this easier, these values can also be passed as a parameter in the template:
 
     oc process -f openshift/signalalerts-api.yml -p SENDER_PHONENUMBER=<yourphonenumber>  RECIPIENT_PHONENUMBER=<recipientphonenumber> | oc apply -f -
 
-Once the application is installed and runnning on the cluster, register and verify your number. 
+Once the application is installed and runnning on the cluster, register and verify your (phone) number. 
 
 To register send a GET request to the route endpoint created by the template (oc get route signalalertsapi).
 
