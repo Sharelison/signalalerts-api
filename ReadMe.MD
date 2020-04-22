@@ -13,7 +13,7 @@ NOTE: [signal-cli](https://github.com/AsamK/signal-cli) must be installed on the
 #### To run on Openshift/Kubernetes
 This project is initially created to send alertmanager (prometheus) alerts to signal.
 In the provided template (openshift/signalalerts-api.yml), a init container is defined that will install the signal cli on a persistent volume. 
-This persistent volume is then mounted under the container containing this application making it possible to only having to register a number once. 
+This persistent volume is then mounted under the container containing this application making it possible to only having to register a sender (phone) number once. 
 Once a number is registered, all the signal data that comes with this, is saved on the persistent volume. Which means the application can now be restarted and destroyed without losing the
 signal data. New numbers can also be registered. This will also automatically be saved on the persistent volume. This makes the application stateless and container ready. This makes it also possible to run multiple instances (replicas) of the application. 
 
