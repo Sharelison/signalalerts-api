@@ -17,7 +17,7 @@ This persistent volume is then mounted under the container containing this appli
 Once a number is registered, all the signal data that comes with this, is saved on the persistent volume. Which means the application can now be restarted and destroyed without losing the
 signal data. New numbers can also be registered. This will also automatically be saved on the persistent volume. This makes the application stateless and container ready. This makes it also possible to run multiple instances (replicas) of the application. 
 
-For testing purposes, there's also a ephemeral template (openshift/signalalertsapi-ephemeral) that doesn't create or make use a persistent volume but a emptydir to install signal. 
+For testing purposes, there's also a ephemeral template (openshift/signalalertsapi-ephemeral) that doesn't create or use a persistent volume but a emptydir to install signal. 
 Keep in mind that signal has a limit per day of registering users/phone numbers. With this template it will not be able to restart or scale your application because every new replica should register a new phonenumber.
 This is why it's highly recommended to use the other template with persistent volumes.
 
