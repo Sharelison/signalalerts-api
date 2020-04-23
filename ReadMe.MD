@@ -22,6 +22,7 @@ Keep in mind that signal has a limit per day of registering users/phone numbers.
 This is why it's highly recommended to use the other template with persistent volumes.
 
 #### Usage
+###### NOTE: For the ephemeral template the same steps should be applied, just replace signalalerts-api.yml by signalalertsapi-ephemeral.yml.
 
 First time installing the application:
 
