@@ -22,11 +22,12 @@ signal data. New numbers can also be registered. This will also automatically be
 
 First time installing the application:
 
+    oc import-image openjdk/openjdk-11-rhel7 --from=registry.access.redhat.com/openjdk/openjdk-11-rhel7 --confirm
+
     oc process -f openshift/signalalerts-api.yml | oc apply -f -
 
 This will create all the resources needed to run this project on a openshift cluster. (For kubernetes, the image must be built first)
-The template creates a buildconfig for building the application. Make sure to update the build image before running the build. The buildconfig expects a java image in the openshift namespace. This 
-might not always be the case.
+The builds rely on the java image that we import with the first step (oc import-image).
 
 In de deploymentconfig created by the template make sure to update the environment variables SENDER_PHONENUMBER and RECIPIENT_PHONENUMBER.
 To make this easier, these values can also be passed as a parameter in the template:

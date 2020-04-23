@@ -23,8 +23,7 @@ objects:
         sourceStrategy:
           from:
             kind: ImageStreamTag
-            name: java:latest
-            namespace: openshift
+            name: openjdk-11-rhel7:latest
         type: Source
       triggers:
         - type: ConfigChange
