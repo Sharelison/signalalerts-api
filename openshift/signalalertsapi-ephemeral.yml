@@ -80,7 +80,7 @@ objects:
           initContainers:
             - name: ${NAME}-init
               image: " "
-              command: ['sh', '-c', '/tmp/install-signal-cli.sh']
+              command: ['sh', '-c', '/init/install-signal-cli.sh']
               env:
                 - name: SIGNAL_CLI_PATH
                   value: ${SIGNAL_CLI_PATH}
