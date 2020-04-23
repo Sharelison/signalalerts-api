@@ -30,9 +30,9 @@ public class SignalAlert {
                           .append("\nCluster: ").append(a.getLabels().getCluster())
                           .append("\nStatus: ").append(a.getStatus())
                           .append("\nSeverity: ").append(a.getLabels().getSeverity())
-                          .append("\nDescription: ").append(a.getAnnotations().getDescription())
                           .append("\nStarts at: ").append(a.getStartsAt())
                           .append("\nEnds at: ").append(a.getEndsAt())
+                          .append("\nDescription: ").append(a.getAnnotations().getDescription())
                           .append("\n\n");
         });
 
