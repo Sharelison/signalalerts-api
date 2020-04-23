@@ -87,6 +87,8 @@ objects:
               volumeMounts:
                 - name: ${NAME}-init
                   mountPath: /init
+                - name: signaldest
+                  mountPath: ${SIGNAL_CLI_PATH}
           containers:
             - name: ${NAME}
               image: " "
@@ -100,11 +102,16 @@ objects:
               ports:
                 - containerPort: 8080
                   protocol: TCP
+              volumeMounts:
+                - name: signaldest
+                  mountPath: ${SIGNAL_CLI_PATH}
           volumes:
             - configMap:
                 defaultMode: 0777
                 name: ${NAME}
               name: ${NAME}-init
+            - emptyDir: {}
+              name: signaldest
       triggers:
         - type: configChange
         - type: ImageChange
