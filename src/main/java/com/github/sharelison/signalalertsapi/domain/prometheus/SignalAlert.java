@@ -19,7 +19,31 @@ public class SignalAlert {
 
     @Override
     public String toString() {
-        return alertmanageralert.getAlerts().stream().map(alert -> alert.getAnnotations().getSummary()).collect(Collectors.joining());
+        return alertmanageralert.getAlerts().stream().map(alert -> alert.getAnnotations().getSummary()).collect(Collectors.joining("\n"));
+    }
+
+    public String toSignalAlertMessage() {
+        StringBuilder alertMessageSb = new StringBuilder("ALERT\n");
+
+        alertmanageralert.getAlerts().forEach(a -> {
+            alertMessageSb.append("Name: ")
+                          .append(a.getLabels().getAlertname())
+                          .append("\nCluster: ")
+                          .append(a.getLabels().getCluster())
+                          .append("\nStatus: ")
+                          .append(a.getStatus())
+                          .append("\nSeverity: ")
+                          .append(a.getLabels().getSeverity())
+                          .append("\nDescription: ")
+                          .append(a.getAnnotations().getDescription())
+                          .append("\nStarts at: ")
+                          .append(a.getStartsAt())
+                          .append("\nEnds at: ")
+                          .append(a.getEndsAt());
+
+        });
+
+        return alertMessageSb.toString();
     }
 
 }

@@ -45,7 +45,7 @@ public class SignalService {
     }
 
     public void sendMessage(SignalAlert message) throws IOException, InterruptedException {
-       sendMessage(message.toString());
+       sendMessage(message.toSignalAlertMessage());
     }
 
     public void sendMessage(String message) throws IOException, InterruptedException {
