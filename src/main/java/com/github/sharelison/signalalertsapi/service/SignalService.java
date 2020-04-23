@@ -50,7 +50,7 @@ public class SignalService {
 
     public void sendMessage(String message) throws IOException, InterruptedException {
         log.info("sending message");
-        Process process = runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "send", "-m", message, phoneNumberRecipient});
+        Process process = runtime.exec(new String[]{signalCli, "-u", phoneNumberSender, "send", "-m", "'"+message+"'", phoneNumberRecipient});
         handleProcessResult(process, "Failed to send message");
         log.info("message sent");
     }
