@@ -25,16 +25,18 @@ public class SignalAlert {
     public String toSignalAlertMessage() {
         StringBuilder alertMessageSb = new StringBuilder("ALERT\n\n");
 
-        alertmanageralert.getAlerts().forEach(a -> {
-            alertMessageSb.append("Name: ").append(a.getLabels().getAlertname())
-                          .append("\nCluster: ").append(a.getLabels().getCluster())
-                          .append("\nStatus: ").append(a.getStatus())
-                          .append("\nSeverity: ").append(a.getLabels().getSeverity())
-                          .append("\nStarts at: ").append(a.getStartsAt())
-                          .append("\nEnds at: ").append(a.getEndsAt())
-                          .append("\nDescription: ").append(a.getAnnotations().getDescription())
-                          .append("\n\n");
-        });
+        if(alertmanageralert != null) {
+            alertmanageralert.getAlerts().forEach(a -> {
+                alertMessageSb.append("Name: ").append(a.getLabels().getAlertname())
+                        .append("\nCluster: ").append(a.getLabels().getCluster())
+                        .append("\nStatus: ").append(a.getStatus())
+                        .append("\nSeverity: ").append(a.getLabels().getSeverity())
+                        .append("\nStarts at: ").append(a.getStartsAt())
+                        .append("\nEnds at: ").append(a.getEndsAt())
+                        .append("\nDescription: ").append(a.getAnnotations().getDescription())
+                        .append("\n\n");
+            });
+        }
 
         return alertMessageSb.toString();
     }
