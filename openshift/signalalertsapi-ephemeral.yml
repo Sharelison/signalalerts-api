@@ -148,6 +148,6 @@ parameters:
   - name: RECIPIENT_PHONENUMBER
     value: "+3166666666"
   - name: SIGNAL_CLI_PATH
-    value: /tmp
+    value: /home/jboss
   - name: SIGNAL_CLI_VERSION
     value: 0.6.7

@@ -36,7 +36,7 @@ The builds rely on the java image that we import with the first step (oc import-
 In de deploymentconfig created by the template make sure to update the environment variables SENDER_PHONENUMBER and RECIPIENT_PHONENUMBER.
 To make this easier, these values can also be passed as a parameter in the template:
 
-    oc process -f openshift/signalalerts-api.yml -p SENDER_PHONENUMBER=<yourphonenumber>  RECIPIENT_PHONENUMBER=<recipientphonenumber> | oc apply -f -
+    oc process -f openshift/signalalerts-api.yml -p SENDER_PHONENUMBER=<yourphonenumber> -p RECIPIENT_PHONENUMBER=<recipientphonenumber> | oc apply -f -
 
 Once the application is installed and runnning on the cluster, register and verify your (phone) number. 
 
