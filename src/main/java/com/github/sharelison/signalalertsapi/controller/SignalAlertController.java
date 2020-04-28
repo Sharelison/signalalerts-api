@@ -31,7 +31,7 @@ public class SignalAlertController {
         return "Successfully verified";
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/send/prometheusalert2")
+    @RequestMapping(method = RequestMethod.POST, path = "/send/prometheusalert")
     public String sendMessage(@RequestBody AlertmanagerAlert alert) throws IOException, InterruptedException {
         log.info("Alert prometheus message, {}", alert.toString());
         signalService.sendMessage(alert);
