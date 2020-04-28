@@ -3,12 +3,14 @@ package com.github.sharelison.signalalertsapi.domain.prometheus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.sharelison.signalalertsapi.exception.SignalException;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 @Getter
 @Setter
 public class AlertmanagerAlert {
@@ -35,10 +37,14 @@ public class AlertmanagerAlert {
     @Override
     public String toString() {
         try {
-            return new ObjectMapper().writeValueAsString(this);
+            return new ObjectMapper()
+                    .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                    .writeValueAsString(this);
         } catch (JsonProcessingException e) {
-            throw new SignalException(e.getMessage());
+            log.warn("Could not serialize object with objectmapper, {}", e.getMessage(), e);
         }
+
+        return "Could not serialize alert to string";
     }
 
     public String toSignalAlertMessage() {
