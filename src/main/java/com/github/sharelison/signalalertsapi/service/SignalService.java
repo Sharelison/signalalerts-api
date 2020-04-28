@@ -55,7 +55,7 @@ public class SignalService {
         log.info("message sent");
     }
 
-    public void handleProcessResult(Process process, String onErrorMessage) throws InterruptedException, IOException {
+    private void handleProcessResult(Process process, String onErrorMessage) throws InterruptedException, IOException {
         if(process.waitFor() != 0) {
             log.error("error from signal client command, output:");
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()));

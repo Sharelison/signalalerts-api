@@ -1,0 +1,5 @@
+signal:
+  phonenumber:
+    sender: "+3166666666"
+    recipient: "+316666666"
+  client: mysignal
