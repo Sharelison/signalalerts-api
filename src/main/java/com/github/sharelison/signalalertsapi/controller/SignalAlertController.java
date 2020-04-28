@@ -1,13 +1,16 @@
 package com.github.sharelison.signalalertsapi.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.sharelison.signalalertsapi.domain.prometheus.SignalAlert;
 import com.github.sharelison.signalalertsapi.service.SignalService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+@Slf4j
 @RestController
 public class SignalAlertController {
 
@@ -31,6 +34,7 @@ public class SignalAlertController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/send/prometheusalert")
     public String sendMessage(@RequestBody SignalAlert signalAlert) throws IOException, InterruptedException {
+        log.info("Alert prometheus message, {}", new ObjectMapper().writeValueAsString(signalAlert));
         signalService.sendMessage(signalAlert);
         return "Alert message sent";
     }
