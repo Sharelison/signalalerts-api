@@ -62,7 +62,8 @@ To forward messages from prometheus alertmanager to this application update the 
          - name: default-receiver
          - name: signalapp-receiver
            webhook_configs:
-             - url: "http://signalalertsapi-<namespace>.<yourdomain>/send/prometheusalert"
+             - url: "http://signalalertsapi.<your-namespace>.svc:8080/send/prometheusalert"
+In openshift this is usually a secret called alertmanager-main. (secret/alertmanager-main)
 
 To learn more about prometheus configs, see: https://prometheus.io/docs/alerting/configuration/#receiverhere.
 
