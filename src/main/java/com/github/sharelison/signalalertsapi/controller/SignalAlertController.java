@@ -32,12 +32,20 @@ public class SignalAlertController {
         return "Successfully verified";
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/send/prometheusalert")
+    @RequestMapping(method = RequestMethod.POST, path = "/send/prometheusalert2")
     public String sendMessage(@RequestBody SignalAlert signalAlert) throws IOException, InterruptedException {
-        log.info("Alert prometheus message, {}", new ObjectMapper().writeValueAsString(signalAlert));
+        log.info("Alert prometheus message, {}", signalAlert.toString());
         signalService.sendMessage(signalAlert);
         return "Alert message sent";
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/send/prometheusalert")
+    public String sendMessage2(@RequestBody String signalAlert) throws IOException, InterruptedException {
+        log.info("Alert prometheus message, {}", signalAlert);
+        signalService.sendMessage(signalAlert);
+        return "Alert message sent";
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, path = "/send", consumes = MediaType.ALL_VALUE)
     public String sendCustomMessage(@RequestBody String message) throws IOException, InterruptedException {

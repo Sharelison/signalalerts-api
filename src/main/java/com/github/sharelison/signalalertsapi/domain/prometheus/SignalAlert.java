@@ -1,8 +1,9 @@
 package com.github.sharelison.signalalertsapi.domain.prometheus;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.sharelison.signalalertsapi.exception.SignalException;
 
 public class SignalAlert {
 
@@ -19,7 +20,11 @@ public class SignalAlert {
 
     @Override
     public String toString() {
-        return alertmanageralert.getAlerts().stream().map(alert -> alert.getAnnotations().getSummary()).collect(Collectors.joining("\n"));
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new SignalException(e.getMessage());
+        }
     }
 
     public String toSignalAlertMessage() {
