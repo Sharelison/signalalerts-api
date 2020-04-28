@@ -62,7 +62,7 @@ To forward messages from prometheus alertmanager to this application update the 
          - name: default-receiver
          - name: signalapp-receiver
            webhook_configs:
-             - url: "http://signalalertsapi-<namespace>.<yourdomain>/send/prometheusalert"
+             - url: "http://signalalertsapi.<your-namespace>.svc:8080/send/prometheusalert"
 
 To learn more about prometheus configs, see: https://prometheus.io/docs/alerting/configuration/#receiverhere.
 
