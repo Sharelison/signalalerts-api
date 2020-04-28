@@ -1,6 +1,6 @@
 package com.github.sharelison.signalalertsapi.service;
 
-import com.github.sharelison.signalalertsapi.domain.prometheus.SignalAlert;
+import com.github.sharelison.signalalertsapi.domain.prometheus.AlertmanagerAlert;
 import com.github.sharelison.signalalertsapi.exception.SignalException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +44,7 @@ public class SignalService {
         log.info("verified successfully");
     }
 
-    public void sendMessage(SignalAlert message) throws IOException, InterruptedException {
+    public void sendMessage(AlertmanagerAlert message) throws IOException, InterruptedException {
        sendMessage(message.toSignalAlertMessage());
     }
 
