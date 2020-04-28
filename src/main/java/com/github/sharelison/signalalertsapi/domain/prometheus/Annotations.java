@@ -6,8 +6,8 @@ public class Annotations {
 
     @JsonProperty("summary")
     private String summary;
-    @JsonProperty("description")
-    private String description;
+    @JsonProperty("message")
+    private String message;
 
     public String getSummary(){
         return this.summary;
@@ -17,12 +17,12 @@ public class Annotations {
         this.summary = summary;
     }
 
-    public String getDescription(){
-        return this.description;
+    public String getMessage(){
+        return this.message;
     }
 
-    public void setDescription(String description){
-        this.description = description;
+    public void setMessage(String description){
+        this.message = description;
     }
 
 }

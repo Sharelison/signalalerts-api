@@ -57,7 +57,7 @@ public class AlertmanagerAlert {
                     .append("\nSeverity: ").append(a.getLabels().getSeverity())
                     .append("\nStarts at: ").append(a.getStartsAt())
                     .append("\nEnds at: ").append(a.getEndsAt())
-                    .append("\nDescription: ").append(a.getAnnotations().getDescription())
+                    .append("\nMessage: ").append(a.getAnnotations().getMessage())
                     .append("\n\n");
         });
 
